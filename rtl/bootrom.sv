@@ -1,0 +1,206 @@
+//-----------------------------------------------------------------------------
+// Title         : bootloader bootrom
+//-----------------------------------------------------------------------------
+// File          : bootrom.sv
+//-----------------------------------------------------------------------------
+// Description :
+// Auto-generated bootrom from gen_bootrom.py
+//-----------------------------------------------------------------------------
+// Copyright (C) 2013-2021 ETH Zurich, University of Bologna
+// Copyright and related rights are licensed under the Solderpad Hardware
+// License, Version 0.51 (the "License"); you may not use this file except in
+// compliance with the License. You may obtain a copy of the License at
+// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
+// or agreed to in writing, software, hardware and materials distributed under
+// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+// CONDITIONS OF ANY KIND, either express or implied. See the License for the
+// specific language governing permissions and limitations under the License.
+//-----------------------------------------------------------------------------
+
+// Auto-generated code
+module bootrom #(
+    parameter ADDR_WIDTH=32,
+    parameter DATA_WIDTH=32
+) (
+   input logic                   CLK,
+   input logic                   CEN,
+   input logic  [ADDR_WIDTH-1:0] A,
+   output logic [DATA_WIDTH-1:0] Q
+);
+
+    localparam   NUM_WORDS = 2**ADDR_WIDTH;
+    logic [ADDR_WIDTH-1:0] A_Q;
+
+    const logic [NUM_WORDS-1:0][DATA_WIDTH-1:0] MEM = {
+        32'hfa9ff06f,
+        32'hfc060613,
+        32'h04040413,
+        32'h00c12603,
+        32'heb5ff0ef,
+        32'h01010593,
+        32'h00040513,
+        32'h04000613,
+        32'he71ff0ef,
+        32'h01010593,
+        32'h04000613,
+        32'h00078067,
+        32'h800007b7,
+        32'hed9ff0ef,
+        32'h00040513,
+        32'h01010593,
+        32'h00c12603,
+        32'he95ff0ef,
+        32'h01010593,
+        32'h00060e63,
+        32'h02c96463,
+        32'h00940533,
+        32'h00c12623,
+        32'h04000913,
+        32'h00261613,
+        32'h00440493,
+        32'h80000437,
+        32'h00c12603,
+        32'hec1ff0ef,
+        32'h00c10593,
+        32'h00400613,
+        32'hfe051ee3,
+        32'he39ff0ef,
+        32'hf4dff0ef,
+        32'h11212823,
+        32'h10912a23,
+        32'h10812c23,
+        32'h10112e23,
+        32'hee010113,
+        32'hfd5ff06f,
+        32'h00660023,
+        32'h00170713,
+        32'h00e50633,
+        32'h0006c303,
+        32'h00078023,
+        32'hff161ee3,
+        32'h0007c603,
+        32'h01078023,
+        32'h00008067,
+        32'h00b66463,
+        32'h0ff77613,
+        32'h00468693,
+        32'h02000893,
+        32'h00200813,
+        32'h01078793,
+        32'h00000713,
+        32'h200006b7,
+        32'h200007b7,
+        32'h00008067,
+        32'h00078023,
+        32'hfee69ee3,
+        32'h0007c683,
+        32'h02000713,
+        32'h00e78023,
+        32'h01078793,
+        32'h00100713,
+        32'h00a78023,
+        32'h200007b7,
+        32'h00008067,
+        32'h00078623,
+        32'h200007b7,
+        32'h00008067,
+        32'h00a78623,
+        32'h200007b7,
+        32'h00008067,
+        32'h00078823,
+        32'h00e78423,
+        32'h01800713,
+        32'h200007b7,
+        32'hfe5ff06f,
+        32'h00d70023,
+        32'h00178793,
+        32'h00f50733,
+        32'h00074683,
+        32'h00f58733,
+        32'h00008067,
+        32'h00f61463,
+        32'h00000793,
+        32'h0480006f,
+        32'h02010113,
+        32'h01412483,
+        32'h01c12083,
+        32'h01812403,
+        32'h090000ef,
+        32'h00048513,
+        32'h00c14583,
+        32'hf95ff0ef,
+        32'h00040513,
+        32'h07c000ef,
+        32'h00300513,
+        32'h06c000ef,
+        32'h00058493,
+        32'h00c12623,
+        32'h00912a23,
+        32'h00112e23,
+        32'h00100513,
+        32'h00050413,
+        32'h00812c23,
+        32'hfe010113,
+        32'h0a80006f,
+        32'h01010113,
+        32'h00c12083,
+        32'h00812403,
+        32'h0ff47513,
+        32'h0bc000ef,
+        32'h0ff57513,
+        32'h00845513,
+        32'h0c8000ef,
+        32'h00112623,
+        32'h0ff57513,
+        32'h01055513,
+        32'h00050413,
+        32'h00812423,
+        32'hff010113,
+        32'h00008067,
+        32'h02010113,
+        32'h01c12083,
+        32'h00a03533,
+        32'hfe750513,
+        32'h00a14503,
+        32'h00f71863,
+        32'h0ba00793,
+        32'h00914703,
+        32'h00f71e63,
+        32'h00100513,
+        32'h02000793,
+        32'h00814703,
+        32'h10c000ef,
+        32'h144000ef,
+        32'h00b10533,
+        32'h00800593,
+        32'h128000ef,
+        32'h09e00513,
+        32'h118000ef,
+        32'h00112e23,
+        32'h00100513,
+        32'hfe010113,
+        32'h00008067,
+        32'h3042b073,
+        32'h08000293,
+        32'h00551663,
+        32'h00700293,
+        32'h00008067,
+        32'h1cc0006f,
+        32'hfec18193,
+        32'h70000197,
+        32'hff410113,
+        32'h70004117,
+        32'h10000024,
+        32'h10000020,
+        32'h00c0006f
+    };
+
+    always_ff @(posedge CLK)
+    begin
+      if (CEN == 1'b0)
+        A_Q <= A;
+    end
+
+    assign Q = MEM[A_Q];
+
+endmodule

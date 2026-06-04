@@ -8,4 +8,4 @@ dependencies:
 
 sources:
   - rtl/obi_rom.sv
-  - rtl/test_rom.sv
+  - rtl/bootrom.sv
