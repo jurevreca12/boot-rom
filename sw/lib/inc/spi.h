@@ -10,7 +10,7 @@
 
 #define SPI_START_WRITING		0x1
 #define SPI_START_READING		0x2
-#define SPI_DONE			0x20
+#define SPI_DONE			0x8
 
 void spi_init();
 void spi_select(uint8_t slave);

@@ -57,7 +57,6 @@ module $module_name #(
 );
 
     localparam   NUM_WORDS = 2**ADDR_WIDTH;
-    logic [ADDR_WIDTH-1:0] A_Q;
 
     const logic [NUM_WORDS-1:0][DATA_WIDTH-1:0] MEM = {
 $content
@@ -65,12 +64,9 @@ $content
 
     always_ff @(posedge CLK)
     begin
-      if (CEN == 1'b0)
-        A_Q <= A;
+      if (CEN)
+        Q <= MEM[A];
     end
-
-    assign Q = MEM[A_Q];
-
 endmodule
 """
 

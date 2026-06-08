@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------------
-// Title         : bootloader bootrom
+// Title         : bootrom
 //-----------------------------------------------------------------------------
 // File          : bootrom.sv
 //-----------------------------------------------------------------------------
@@ -29,7 +29,6 @@ module bootrom #(
 );
 
     localparam   NUM_WORDS = 2**ADDR_WIDTH;
-    logic [ADDR_WIDTH-1:0] A_Q;
 
     const logic [NUM_WORDS-1:0][DATA_WIDTH-1:0] MEM = {
         32'hfa9ff06f,
@@ -84,7 +83,7 @@ module bootrom #(
         32'h00b66463,
         32'h0ff77613,
         32'h00468693,
-        32'h02000893,
+        32'h00800893,
         32'h00200813,
         32'h01078793,
         32'h00000713,
@@ -94,7 +93,7 @@ module bootrom #(
         32'h00078023,
         32'hfee69ee3,
         32'h0007c683,
-        32'h02000713,
+        32'h00800713,
         32'h00e78023,
         32'h01078793,
         32'h00100713,
@@ -197,10 +196,7 @@ module bootrom #(
 
     always_ff @(posedge CLK)
     begin
-      if (CEN == 1'b0)
-        A_Q <= A;
+      if (CEN)
+        Q <= MEM[A];
     end
-
-    assign Q = MEM[A_Q];
-
 endmodule
