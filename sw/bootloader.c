@@ -9,7 +9,7 @@
 int main() {
     uint32_t flash_addr;
     uint32_t num_bytes; // First 4 bytes of flash contain the hex size
-    uint32_t hex_data[64];
+    uint8_t  hex_data[64];
     uint8_t  status;
     uint8_t* dest_addr;
 
