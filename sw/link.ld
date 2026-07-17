@@ -14,7 +14,7 @@ MEMORY
 {
 	ROM (rx)    : ORIGIN = 0x10000000, LENGTH = 0x1000
 	/* unified on-chip SRAM region used for all code and data */
-	SRAM (rwxail) : ORIGIN = 0x80000000, LENGTH = 0x4000
+	SRAM (rwxail) : ORIGIN = 0x80000000, LENGTH = 0x2000
 }
 
 PHDRS
@@ -77,7 +77,7 @@ SECTIONS
 /* Place GP near the middle for efficient GP-relative access */
 PROVIDE(__global_pointer$ = ADDR(.misc) + SIZEOF(.misc) / 2);
 /* Initial stack pointer at the end of SRAM */
-PROVIDE(__stack_pointer$ = ORIGIN(SRAM) + LENGTH(SRAM));
+PROVIDE(__stack_pointer$ = ORIGIN(SRAM) + LENGTH(SRAM) - 64);
 
 /* Bootrom symbols (fixed addresses) */
 PROVIDE(_eoc = 0x02000100);

@@ -1,7 +1,7 @@
 module obi_rom #(
   parameter  int ADDR_WIDTH=32,
   parameter  int DATA_WIDTH=32,
-  parameter  int MEM_SIZE_WORDS=1024,
+  parameter  int MEM_SIZE_WORDS=256,
   localparam int NBytes=(DATA_WIDTH / 8)
 ) (
   input  logic                  clk_i,
@@ -51,7 +51,7 @@ module obi_rom #(
   ) bootrom_inst (
       .CLK          (clk_i),
       .CEN          (obi_a_read),
-      .A            (obi_aaddr_i[MemAddrWidth-1:2]),
+      .A            (obi_aaddr_i[MemAddrWidth+1:2]),
       .Q            (obi_rdata_o)
   );
 
@@ -67,5 +67,5 @@ module obi_rom #(
 
   register #(.DTYPE(obi_state_t), .RESET_VALUE(eOBI_IDLE)) obi_state_inst (.clk(clk_i), .rstn(rstn_i), .ce(1'b1), .in(obi_state_next), .out(obi_state));
 
-endmodule;
+endmodule
 
